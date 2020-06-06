@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital@0;1&family=Work+Sans:wght@900&display=swap");
+
+:root {
+  --background-color: #dcdce5;
+  --text-color: #1c1b22;
+  --primary: #641e85;
+  --secondary: #ff6978;
+}
+*:focus {
+  box-shadow: 0 0 0 3px var(--background-color), 0 0 0 0.35rem var(--secondary);
+  outline: none;
+}
+
+html {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Lato", sans-serif;
+  line-height: 1.5rem;
+  text-align: left;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem;
+}
+
+main > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Work Sans", sans-serif;
+  letter-spacing: 0.05rem;
+  line-height: 1.7rem;
+}
+
+button {
+  border: 0.1rem solid var(--primary);
+  padding: 0.5rem;
+  color: var(--background-color);
+  background-color: var(--primary);
+  border-radius: 0.25rem;
+  transition: all 150ms ease-out;
+}
+
+img {
+  width: 50vw;
+  max-width: 20rem;
+}
+
+input {
+  background-color: var(--background-color);
+  border: 0.1rem solid var(--primary);
+  border-radius: 0.25rem;
+  transition: all 150ms ease-out;
+}
+
+form > div {
+  padding-bottom: 1rem;
+}
+
+form > div > label {
+  display: flex;
+  flex-direction: column;
+}
