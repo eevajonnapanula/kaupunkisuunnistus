@@ -23,7 +23,11 @@
   "rules": {
     "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
-    "indent": ["error", 2, { "ignoredNodes": ["ConditionalExpression"] }],
+    "indent": [
+      "error",
+      2,
+      { "ignoredNodes": ["ConditionalExpression"], "SwitchCase": 1 }
+    ],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
@@ -36,6 +40,9 @@
     ]
   },
   "globals": {
-    "React": "writable"
-  }
+    "React": "writable",
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "settings": { "react": { "version": "detect" } }
 }
