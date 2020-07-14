@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.0.0-rc.2",
-    "apollo-server-micro": "^2.14.1",
+    "@auth0/nextjs-auth0": "^0.14.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",

@@ -1,9 +1,11 @@
 import React from "react";
 import { NextPage } from "next";
+import SEO from "../components/SEO";
 
 const Home: NextPage = () => {
   return (
     <>
+      <SEO title="Kauklahden kierros" />
       <img src="/illustrations/map.svg" alt=""></img>
       <div>
         <h1>Kauklahden kierros</h1>
