@@ -24,9 +24,6 @@ services:
       - HASURA_GRAPHQL_ENABLE_CONSOLE=false
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log
       - HASURA_GRAPHQL_ADMIN_SECRET=${HASURA_GRAPHQL_ADMIN_SECRET}
-    #volumes:
-    # - ./lib/metadata:/hasura-metadata
-    #- ./lib/migrations:/hasura-migrations
   nextjs:
     ports:
       - 3000:3000
