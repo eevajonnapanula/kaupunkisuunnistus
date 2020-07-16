@@ -13,7 +13,7 @@ services:
   graphql-engine:
     build:
       context: .
-      dockerfile: ./dockerfiles/hasura/Dockerfile
+      dockerfile: ./Dockerfile.hasura
     ports:
       - "8080:8080"
     depends_on:
@@ -32,7 +32,7 @@ services:
       - 3000:3000
     build:
       context: .
-      dockerfile: ./dockerfiles/nextjs/Dockerfile
+      dockerfile: ./Dockerfile.dev
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
