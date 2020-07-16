@@ -1,7 +1,5 @@
 FROM node:12
 
-ENV PORT $PORT
-
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -17,4 +15,4 @@ COPY . /usr/src/app
 RUN yarn run build
 
 # Running the app
-CMD "yarn" "start"
+CMD "yarn" "start" "-p" "$PORT"
