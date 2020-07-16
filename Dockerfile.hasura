@@ -2,5 +2,5 @@ FROM hasura/graphql-engine:v1.2.2.cli-migrations-v2
 
 
 CMD graphql-engine \
+  --database-url $DATABASE_URL \
   serve \
-  --database-url $DATABASE_URL 
