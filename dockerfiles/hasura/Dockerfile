@@ -1,0 +1,6 @@
+FROM hasura/graphql-engine:v1.2.2.cli-migrations-v2
+
+
+CMD graphql-engine \
+  serve \
+  --server-port 8080 

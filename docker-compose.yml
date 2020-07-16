@@ -11,26 +11,28 @@ services:
       POSTGRES_PASSWORD: "${DB_PASSWORD}"
       POSTGRES_DB: "${DB_NAME}"
   graphql-engine:
-    image: hasura/graphql-engine:v1.2.2
+    build:
+      context: .
+      dockerfile: ./dockerfiles/hasura/Dockerfile
     ports:
       - "8080:8080"
     depends_on:
       - "postgres"
     restart: always
-    volumes:
-      - ./lib/metadata:/usr/src/app/lib/metadata
     environment:
       - HASURA_GRAPHQL_DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres/postgres
-      - HASURA_GRAPHQL_ENABLE_CONSOLE=true
+      - HASURA_GRAPHQL_ENABLE_CONSOLE=false
       - HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log
       - HASURA_GRAPHQL_ADMIN_SECRET=${HASURA_GRAPHQL_ADMIN_SECRET}
-      - HASURA_GRAPHQL_METADATA_DIR=${HASURA_GRAPHQL_METADATA_DIR}
+    #volumes:
+    # - ./lib/metadata:/hasura-metadata
+    #- ./lib/migrations:/hasura-migrations
   nextjs:
     ports:
       - 3000:3000
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./dockerfiles/nextjs/Dockerfile
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
