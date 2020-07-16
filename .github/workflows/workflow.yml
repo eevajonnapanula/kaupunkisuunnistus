@@ -2,27 +2,38 @@ name: Push container to Heroku
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
-
+    branches: [master]
 
 jobs:
-  # This workflow contains a single job called "build"
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Login to Heroku Container registry
-        env: 
+        env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login
       - name: Build and push
-        env: 
+        env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push hasura nextjs --recursive -a ${{ secrets.HEROKU_APP_NAME }} 
+          HASURA_GRAPHQL_DATABASE_URL: ${{ secrets.HASURA_GRAPHQL_DATABASE_UR }}
+          HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}
+          HASURA_GRAPHQL_METADATA_DIR: ${{ secrets.HASURA_GRAPHQL_METADATA_DIR }}
+          HASURA_GRAPHQL_MIGRATIONS_DIR: ${{ secrets.HASURA_GRAPHQL_MIGRATIONS_DIR }}
+          NEXT_PUBLIC_HASURA_GRAPHQL_ADMIN_SECRET: ${{ secrets.NEXT_PUBLIC_HASURA_GRAPHQL_ADMIN_SECRET }}
+          NEXT_PUBLIC_HASURA_ROLE: ${{ secrets.NEXT_PUBLIC_HASURA_ROLE }}
+          NEXT_PUBLIC_GRAPHQL_URI: ${{ secrets.NEXT_PUBLIC_GRAPHQL_URI }}
+          AUTH_CLIENT_ID: ${{ secrets.AUTH_CLIENT_ID }}
+          AUTH_CLIENT_SECRET: ${{ secrets.AUTH_CLIENT_SECRET }}
+          AUTH_CLIENT_DOMAIN: ${{ secrets.AUTH_CLIENT_DOMAIN }}
+          COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
+          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+          POST_LOGOUT_REDIRECT_URI: ${{ secrets.POST_LOGOUT_REDIRECT_URI }}
+          SCOPE: ${{ secrets.SCOPE }}
+        run: heroku container:push hasura nextjs --recursive -a ${{ secrets.HEROKU_APP_NAME }}
       - name: Release
-        env: 
+        env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:release hasura nextjs -a ${{ secrets.HEROKU_APP_NAME }}
-
