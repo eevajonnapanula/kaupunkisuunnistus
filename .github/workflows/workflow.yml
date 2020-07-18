@@ -32,8 +32,8 @@ jobs:
           REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
           POST_LOGOUT_REDIRECT_URI: ${{ secrets.POST_LOGOUT_REDIRECT_URI }}
           SCOPE: ${{ secrets.SCOPE }}
-        run: heroku container:push nextjs hasura  --recursive -a ${{ secrets.HEROKU_APP_NAME }}
+        run: heroku container:push web hasura  --recursive -a ${{ secrets.HEROKU_APP_NAME }}
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release hasura nextjs -a ${{ secrets.HEROKU_APP_NAME }}
+        run: heroku container:release hasura web -a ${{ secrets.HEROKU_APP_NAME }}
