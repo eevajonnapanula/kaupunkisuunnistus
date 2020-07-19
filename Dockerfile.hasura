@@ -1,6 +1,6 @@
 FROM hasura/graphql-engine:latest.cli-migrations-v2
 
-VOLUME ./hasura/metadata /hasura-metadata
-VOLUME ./hasura/migrations /hasura-migrations
+COPY ./hasura/metadata /hasura-metadata
+COPY ./hasura/migrations /hasura-migrations
 
 CMD graphql-engine serve 
