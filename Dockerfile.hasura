@@ -3,4 +3,4 @@ FROM hasura/graphql-engine:latest.cli-migrations-v2
 COPY ./hasura/metadata /hasura-metadata
 COPY ./hasura/migrations /hasura-migrations
 
-CMD graphql-engine --database-url $DATABASE_URL serve 
+CMD graphql-engine --database-url $DATABASE_URL serve --server-port $PORT 
