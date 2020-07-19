@@ -27,11 +27,11 @@ jobs:
       - name: Build and push frontend
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push nextjs -a ${{ secrets.HEROKU_FE_APP_NAME }}
+        run: heroku container:push nextjs --recursive -a ${{ secrets.HEROKU_FE_APP_NAME }}
       - name: Build and push Hasura
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push hasura -a ${{ secrets.HEROKU_APP_NAME }}
+        run: heroku container:push hasura --recursive -a ${{ secrets.HEROKU_APP_NAME }}
       - name: Release Hasura
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
