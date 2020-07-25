@@ -50,7 +50,7 @@ const Dashboard: NextPage<DashboardProps> = ({ token }) => {
     context: {
       headers: {
         "X-Hasura-Role": `${process.env.NEXT_PUBLIC_HASURA_ADMIN_ROLE}`,
-        Authorization: `Bearer: ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     },
   });
