@@ -7,6 +7,7 @@ import Team from "../../components/dashboard/Team";
 import TaskCard from "../../components/dashboard/TaskCard";
 import TimesTable from "../../components/dashboard/TimesTable";
 import Protected from "../../components/Protected";
+import auth0 from "../../lib/auth0";
 
 const GET_TASKS = gql`
   query TasksQuery {
@@ -110,12 +111,12 @@ const Dashboard: NextPage<DashboardProps> = ({ token }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch("http://localhost:3000/api/token");
-  console.log(res);
-  const token = await res.json();
-  console.log(res);
-  return { props: { token } };
+export const getServerSideProps = async (context) => {
+  const token = auth0.getSession(context.req);
+  console.log(token);
+  return {
+    props: { token },
+  };
 };
 
 export default Dashboard;
