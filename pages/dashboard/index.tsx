@@ -1,5 +1,5 @@
 import React from "react";
-import { NextPage } from "next";
+import { NextPage, GetStaticProps } from "next";
 import SEO from "../../components/SEO";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
@@ -40,11 +40,16 @@ const GET_TASKS = gql`
   }
 `;
 
-const Dashboard: NextPage = () => {
+interface DashboardProps {
+  token?: string;
+}
+
+const Dashboard: NextPage<DashboardProps> = ({ token }) => {
   const { data, loading, error } = useQuery(GET_TASKS, {
     context: {
       headers: {
         "X-Hasura-Role": `${process.env.NEXT_PUBLIC_HASURA_ADMIN_ROLE}`,
+        Authorization: `Bearer: ${token}`,
       },
     },
   });
@@ -103,6 +108,14 @@ const Dashboard: NextPage = () => {
       </main>
     </Protected>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await fetch("http://localhost:3000/api/token");
+  console.log(res);
+  const token = await res.json();
+  console.log(res);
+  return { props: { token } };
 };
 
 export default Dashboard;

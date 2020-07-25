@@ -23,6 +23,7 @@ export default initAuth0({
     // The cookie lifetime (expiration) in seconds. Set to 8 hours by default.
     cookieLifetime: 60 * 60 * 8,
     storeAccessToken: true,
+    storeRefreshToken: true,
   },
   oidcClient: {
     // (Optional) Configure the timeout in milliseconds for HTTP requests to Auth0.
