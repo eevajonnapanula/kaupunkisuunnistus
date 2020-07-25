@@ -9,10 +9,10 @@
     "lint": "eslint './**/*.{ts,tsx}'"
   },
   "dependencies": {
-    "@apollo/client": "^3.0.0-rc.2",
+    "@apollo/client": "^3.0.2",
     "@auth0/nextjs-auth0": "^0.14.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "graphql": "^15.0.0",
+    "graphql": "^15.3.0",
     "graphql-tag": "^2.10.3",
     "next": "9.4.4",
     "react": "16.13.1",
