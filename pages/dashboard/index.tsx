@@ -115,7 +115,7 @@ export const getServerSideProps = async (context) => {
   const token = await auth0.getSession(context.req);
 
   return {
-    props: { token: token.accessToken },
+    props: { token: token.idToken },
   };
 };
 
