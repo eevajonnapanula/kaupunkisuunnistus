@@ -1,5 +1,5 @@
 import React from "react";
-import { NextPage, GetStaticProps } from "next";
+import { NextPage } from "next";
 import SEO from "../../components/SEO";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/client";
