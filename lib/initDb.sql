@@ -49,9 +49,9 @@ INSERT INTO tasks (title, description) VALUES ('Task 2', 'Shred all toilet paper
 INSERT INTO tasks (title, description) VALUES ('Task 3', 'Shred all toilet paper and spread around the house suddenly go on wild-eyed crazy rampage, poop in a handbag look delicious and drink the soapy mopping up water then puke giant foamy fur-balls yet run in circles.');
 INSERT INTO tasks (title, description) VALUES ('Task 4', 'Shred all toilet paper and spread around the house suddenly go on wild-eyed crazy rampage, poop in a handbag look delicious and drink the soapy mopping up water then puke giant foamy fur-balls yet run in circles.');
 
-INSERT INTO times (teamId, type)  SELECT id, 'start' FROM teams WHERE name = 'Team A'
-INSERT INTO times (teamId, type)  SELECT id, 'start' FROM teams WHERE name = 'Team B'
-INSERT INTO times (teamId, type)  SELECT id, 'start' FROM teams WHERE name = 'Team C'
+INSERT INTO times (teamId, type)  SELECT id, 'start' FROM teams WHERE name = 'Team A';
+INSERT INTO times (teamId, type)  SELECT id, 'start' FROM teams WHERE name = 'Team B';
+INSERT INTO times (teamId, type)  SELECT id, 'start' FROM teams WHERE name = 'Team C';
 
 
 

@@ -1,0 +1,164 @@
+{
+  "version": 2,
+  "tables": [
+    {
+      "table": {
+        "schema": "public",
+        "name": "taskaccomplishments"
+      },
+      "object_relationships": [
+        {
+          "name": "task",
+          "using": {
+            "foreign_key_constraint_on": "taskid"
+          }
+        },
+        {
+          "name": "team",
+          "using": {
+            "foreign_key_constraint_on": "teamid"
+          }
+        }
+      ],
+      "insert_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "check": {},
+            "columns": ["answer", "taskid", "teamid"],
+            "backend_only": false
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": ["answer", "id", "taskid", "teamid"],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "public",
+        "name": "tasks"
+      },
+      "array_relationships": [
+        {
+          "name": "taskAccomplishments",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "taskid",
+              "table": {
+                "schema": "public",
+                "name": "taskaccomplishments"
+              }
+            }
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": [
+              "id",
+              "created_at",
+              "updated_at",
+              "title",
+              "description"
+            ],
+            "filter": {},
+            "allow_aggregations": true
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "public",
+        "name": "teams"
+      },
+      "array_relationships": [
+        {
+          "name": "taskAccomplishments",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "teamid",
+              "table": {
+                "schema": "public",
+                "name": "taskaccomplishments"
+              }
+            }
+          }
+        },
+        {
+          "name": "times",
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "teamid",
+              "table": {
+                "schema": "public",
+                "name": "times"
+              }
+            }
+          }
+        }
+      ],
+      "insert_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "check": {},
+            "columns": ["name", "created_at", "updated_at", "id"],
+            "backend_only": false
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": ["created_at", "id", "name", "updated_at"],
+            "filter": {}
+          }
+        }
+      ]
+    },
+    {
+      "table": {
+        "schema": "public",
+        "name": "times"
+      },
+      "object_relationships": [
+        {
+          "name": "team",
+          "using": {
+            "foreign_key_constraint_on": "teamid"
+          }
+        }
+      ],
+      "insert_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "check": {},
+            "columns": ["teamid", "type"],
+            "backend_only": false
+          }
+        }
+      ],
+      "select_permissions": [
+        {
+          "role": "user",
+          "permission": {
+            "columns": ["created_at", "teamid", "type"],
+            "filter": {}
+          }
+        }
+      ]
+    }
+  ]
+}
