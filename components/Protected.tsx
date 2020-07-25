@@ -7,6 +7,8 @@ const Protected: FunctionComponent = ({ children }) => {
       const res = await fetch("/api/me");
       if (res.ok) {
         const userFromApi = await res.json();
+
+        console.log(userFromApi);
         if (userFromApi) {
           setUser(userFromApi);
         }
