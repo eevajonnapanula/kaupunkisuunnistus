@@ -113,9 +113,9 @@ const Dashboard: NextPage<DashboardProps> = ({ token }) => {
 
 export const getServerSideProps = async (context) => {
   const token = await auth0.getSession(context.req);
-  console.log(token);
+
   return {
-    props: { token },
+    props: { token: token.accessToken },
   };
 };
 
