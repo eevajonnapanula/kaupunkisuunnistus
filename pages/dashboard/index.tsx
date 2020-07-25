@@ -41,7 +41,13 @@ const GET_TASKS = gql`
 `;
 
 const Dashboard: NextPage = () => {
-  const { data, loading, error } = useQuery(GET_TASKS);
+  const { data, loading, error } = useQuery(GET_TASKS, {
+    context: {
+      headers: {
+        "X-Hasura-Role": `${process.env.NEXT_PUBLIC_HASURA_ADMIN_ROLE}`,
+      },
+    },
+  });
 
   if (loading) return <div>Loading</div>;
 
