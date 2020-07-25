@@ -12,6 +12,4 @@ const client = new ApolloClient({
   }),
 });
 
-console.log(process.env.NEXT_PUBLIC_HASURA_ROLE);
-
 export default client;
