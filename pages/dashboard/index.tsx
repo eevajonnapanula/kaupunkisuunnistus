@@ -6,8 +6,14 @@ import { useQuery } from "@apollo/client";
 import Team from "../../components/dashboard/Team";
 import TaskCard from "../../components/dashboard/TaskCard";
 import TimesTable from "../../components/dashboard/TimesTable";
-import Protected from "../../components/Protected";
 import auth0 from "../../lib/auth0";
+import { IClaims } from "@auth0/nextjs-auth0/dist/session/session";
+
+interface SessionUser {
+  nickname: string;
+  name: string;
+  picture: string;
+}
 
 const GET_TASKS = gql`
   query TasksQuery {
@@ -42,10 +48,13 @@ const GET_TASKS = gql`
 `;
 
 interface DashboardProps {
-  token: string;
+  token?: string;
+  user?: IClaims;
 }
 
-const Dashboard: NextPage<DashboardProps> = ({ token }) => {
+const Dashboard: NextPage<DashboardProps> = ({ token, user }) => {
+  if (!user) return <section>No access</section>;
+
   const { data, error } = useQuery(GET_TASKS, {
     context: {
       headers: {
@@ -56,7 +65,7 @@ const Dashboard: NextPage<DashboardProps> = ({ token }) => {
   });
 
   return (
-    <Protected>
+    <>
       <header>
         <a href="/api/logout">Logout</a>
       </header>
@@ -105,18 +114,19 @@ const Dashboard: NextPage<DashboardProps> = ({ token }) => {
           </div>
         )}
       </main>
-    </Protected>
+    </>
   );
 };
 
 export const getServerSideProps = async (
   context
 ): Promise<{ props: DashboardProps }> => {
-  const token = await auth0.getSession(context.req);
-
+  const session = await auth0.getSession(context.req);
+  console.log(session.user);
   return {
     props: {
-      token: token.idToken,
+      token: session ? session.idToken : "",
+      user: session ? session.user : null,
     },
   };
 };
