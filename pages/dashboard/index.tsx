@@ -122,7 +122,6 @@ export const getServerSideProps = async (
   context
 ): Promise<{ props: DashboardProps }> => {
   const session = await auth0.getSession(context.req);
-  console.log(session.user);
   return {
     props: {
       token: session ? session.idToken : "",
