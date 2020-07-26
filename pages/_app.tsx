@@ -1,17 +1,18 @@
 import { ApolloProvider } from "@apollo/client";
-import client from "../lib/apollo";
+
 import "../index.css";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 import Layout from "../components/Layout";
+import { ApolloPersistentProvider } from "../components/ApolloPersistentProvider";
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ApolloProvider client={client}>
+    <ApolloPersistentProvider>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </ApolloProvider>
+    </ApolloPersistentProvider>
   );
 };
 

@@ -42,11 +42,11 @@ const GET_TASKS = gql`
 `;
 
 interface DashboardProps {
-  token?: string;
+  token: string;
 }
 
 const Dashboard: NextPage<DashboardProps> = ({ token }) => {
-  const { data, loading, error } = useQuery(GET_TASKS, {
+  const { data, error } = useQuery(GET_TASKS, {
     context: {
       headers: {
         "X-Hasura-Role": `${process.env.NEXT_PUBLIC_HASURA_ADMIN_ROLE}`,
@@ -54,8 +54,6 @@ const Dashboard: NextPage<DashboardProps> = ({ token }) => {
       },
     },
   });
-
-  if (loading) return <div>Loading</div>;
 
   return (
     <Protected>
@@ -115,7 +113,9 @@ export const getServerSideProps = async (context) => {
   const token = await auth0.getSession(context.req);
 
   return {
-    props: { token: token.idToken },
+    props: {
+      token: token.idToken,
+    },
   };
 };
 

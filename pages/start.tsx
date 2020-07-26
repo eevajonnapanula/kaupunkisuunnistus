@@ -1,8 +1,8 @@
-import React, { FormEvent, useState, ChangeEvent, useEffect } from "react";
+import React, { FormEvent, useState, ChangeEvent } from "react";
 import { NextPage } from "next";
 import SEO from "../components/SEO";
 import gql from "graphql-tag";
-import { useMutation } from "@apollo/client";
+import { useMutation, useApolloClient, useQuery } from "@apollo/client";
 
 const INSERT_TEAM = gql`
   mutation InsertTeam($name: String) {
@@ -21,9 +21,17 @@ const INSERT_TIME = gql`
   }
 `;
 
+const GET_TEAM_ID = gql`
+  query GetTeamId {
+    currentTeamId @client
+  }
+`;
+
 const Start: NextPage = () => {
+  const client = useApolloClient();
   const [groupName, setGroupName] = useState("");
-  const [teamId, setTeamId] = useState("");
+
+  const { data: current } = useQuery(GET_TEAM_ID);
 
   const [insertTeam, { loading: teamLoading, error: teamError }] = useMutation(
     INSERT_TEAM
@@ -32,13 +40,6 @@ const Start: NextPage = () => {
     INSERT_TIME
   );
 
-  useEffect(() => {
-    if (!teamId) {
-      setTeamId(localStorage.getItem("teamId"));
-      setGroupName(localStorage.getItem("teamName"));
-    }
-  }, []);
-
   const submitForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -46,9 +47,13 @@ const Start: NextPage = () => {
       await insertTime({
         variables: { teamid: team.data.insert_teams_one.id, type: "Start" },
       });
-      setTeamId(team.data.insert_teams_one.id);
-      localStorage.setItem("teamId", team.data.insert_teams_one.id);
-      localStorage.setItem("teamName", team.data.insert_teams_one.name);
+
+      client.cache.writeQuery({
+        query: GET_TEAM_ID,
+        data: {
+          currentTeamId: team.data.insert_teams_one.id,
+        },
+      });
     } catch (e) {
       console.error(e);
     }
@@ -64,7 +69,7 @@ const Start: NextPage = () => {
       <h1>Aloitus</h1>
       {teamError && <div>{teamError.message}</div>}
       {timeError && <div>{timeError.message}</div>}
-      {teamId ? (
+      {current && current.currentTeamId ? (
         <div>
           <h2>{groupName}</h2>
           <p>
