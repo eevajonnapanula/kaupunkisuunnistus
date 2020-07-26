@@ -5,6 +5,7 @@ This repository contains an app used for a "urban orienteering" kind of event fo
 Technologies used:
 
 - NextJS
+- TypeScript
 - Apollo Client
 - Auth0
 
