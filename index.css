@@ -63,11 +63,12 @@ input {
   transition: all 150ms ease-out;
 }
 
-form > div {
+form > fieldset {
   padding-bottom: 1rem;
+  border: none;
 }
 
-form > div > label {
+form > fieldset > label {
   display: flex;
   flex-direction: column;
 }

@@ -63,33 +63,41 @@ const TaskId: NextPage<TaskIdProps> = ({ taskId }) => {
 
   // TODO: Add confirmation
   // TODO: Add possibility to insert teamId
-
+  if (error) {
+    console.log(error);
+  }
   return (
     <>
       <SEO
         title={data && data.task && data.task.title ? data.task.title : ""}
       />
-      {error && <div>{error.message}</div>}
+      {data && data.currentTeamId ? (
+        <>
+          <section>
+            <h1>Kauklahden kierros - {data && data.task && data.task.title}</h1>
+            {data && data.task && <p>{data.task.description}</p>}
+          </section>
 
-      <div>
-        <h1>Kauklahden kierros - {data && data.task && data.task.title}</h1>
-        {data && data.task && <p>{data.task.description}</p>}
-      </div>
-
-      <form onSubmit={submitForm}>
-        <div>
-          <label>
-            Vastaus:
-            <input
-              type="text"
-              value={answer}
-              onChange={handleAnswerChange}
-              disabled={loadingTaskAccomplishment}
-            />
-          </label>
-        </div>
-        <button type="submit">Tallenna</button>
-      </form>
+          <form onSubmit={submitForm}>
+            <fieldset>
+              <label>
+                Vastaus:
+                <input
+                  type="text"
+                  value={answer}
+                  onChange={handleAnswerChange}
+                  disabled={loadingTaskAccomplishment}
+                />
+              </label>
+            </fieldset>
+            <button type="submit">Tallenna</button>
+          </form>
+        </>
+      ) : (
+        <p>
+          <a href="/start">Aloita rekisteröimällä joukkue täällä</a>
+        </p>
+      )}
     </>
   );
 };

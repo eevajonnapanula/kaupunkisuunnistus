@@ -2,7 +2,7 @@ import React, { FormEvent, useState, ChangeEvent } from "react";
 import { NextPage } from "next";
 import SEO from "../components/SEO";
 import gql from "graphql-tag";
-import { useMutation, useApolloClient, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 const INSERT_TEAM = gql`
   mutation InsertTeam($name: String) {
@@ -28,13 +28,23 @@ const GET_TEAM_ID = gql`
 `;
 
 const Start: NextPage = () => {
-  const client = useApolloClient();
   const [groupName, setGroupName] = useState("");
 
   const { data: current } = useQuery(GET_TEAM_ID);
 
   const [insertTeam, { loading: teamLoading, error: teamError }] = useMutation(
-    INSERT_TEAM
+    INSERT_TEAM,
+    {
+      update(cache, { data: { insert_teams_one } }) {
+        console.log("insert_teams_one", insert_teams_one);
+        cache.writeQuery({
+          query: GET_TEAM_ID,
+          data: {
+            currentTeamId: insert_teams_one.id,
+          },
+        });
+      },
+    }
   );
   const [insertTime, { loading: timeLoading, error: timeError }] = useMutation(
     INSERT_TIME
@@ -46,13 +56,6 @@ const Start: NextPage = () => {
       const team = await insertTeam({ variables: { name: groupName } });
       await insertTime({
         variables: { teamid: team.data.insert_teams_one.id, type: "Start" },
-      });
-
-      client.cache.writeQuery({
-        query: GET_TEAM_ID,
-        data: {
-          currentTeamId: team.data.insert_teams_one.id,
-        },
       });
     } catch (e) {
       console.error(e);
