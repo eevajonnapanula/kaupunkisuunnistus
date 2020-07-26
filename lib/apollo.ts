@@ -32,7 +32,6 @@ export const createClient = async (): Promise<
       },
     }),
     cache,
-    connectToDevTools: true,
     typeDefs,
   });
 };

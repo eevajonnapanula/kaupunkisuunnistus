@@ -9,12 +9,6 @@ import TimesTable from "../../components/dashboard/TimesTable";
 import auth0 from "../../lib/auth0";
 import { IClaims } from "@auth0/nextjs-auth0/dist/session/session";
 
-interface SessionUser {
-  nickname: string;
-  name: string;
-  picture: string;
-}
-
 const GET_TASKS = gql`
   query TasksQuery {
     tasks {
@@ -66,11 +60,11 @@ const Dashboard: NextPage<DashboardProps> = ({ token, user }) => {
 
   return (
     <>
-      <header>
+      <section>
         <a href="/api/logout">Logout</a>
-      </header>
+      </section>
       <SEO title="Dashboard | Kauklahden kierros" />
-      <main>
+      <section>
         <h1>Dashboard</h1>
         {error && <p>{error.message}</p>}
         {data && !error && (
@@ -113,7 +107,7 @@ const Dashboard: NextPage<DashboardProps> = ({ token, user }) => {
             )}
           </div>
         )}
-      </main>
+      </section>
     </>
   );
 };

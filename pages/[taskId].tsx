@@ -62,7 +62,7 @@ const TaskId: NextPage<TaskIdProps> = ({ taskId }) => {
   };
 
   // TODO: Add confirmation
-  // TODO: Add possibility to insert teamId
+
   if (error) {
     console.log(error);
   }

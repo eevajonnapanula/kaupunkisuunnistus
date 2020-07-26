@@ -1,5 +1,6 @@
 
 /* Create tables */
+/* As get_random_uuid() is not working with hasura out of the box, these are just references to create the tables */
 
 CREATE TABLE teams (
   id UUID DEFAULT gen_random_uuid(),
@@ -37,7 +38,6 @@ CREATE TABLE times (
   FOREIGN KEY (teamId) REFERENCES teams(id)
 );
 
-/* Remember to set up relationships in Hasura console. Also permissions for role user */
 /* Insert example data */
 
 INSERT INTO teams (name) VALUES ('Team A');
