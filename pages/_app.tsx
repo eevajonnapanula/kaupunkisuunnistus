@@ -1,5 +1,3 @@
-import { ApolloProvider } from "@apollo/client";
-
 import "../index.css";
 import { NextPage } from "next";
 import { AppProps } from "next/app";

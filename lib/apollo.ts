@@ -1,6 +1,11 @@
 import gql from "graphql-tag";
 import { persistCache } from "apollo-cache-persist";
-import { ApolloClient, HttpLink, InMemoryCache, makeVar } from "@apollo/client";
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from "@apollo/client";
 
 const typeDefs = gql`
   extend type Query {
@@ -9,7 +14,9 @@ const typeDefs = gql`
   }
 `;
 
-export const createClient = async () => {
+export const createClient = async (): Promise<
+  ApolloClient<NormalizedCacheObject>
+> => {
   const cache = new InMemoryCache();
 
   await persistCache({

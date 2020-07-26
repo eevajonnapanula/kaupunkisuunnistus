@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FunctionComponent } from "react";
 import { createClient } from "../lib/apollo";
 import { ApolloProvider } from "@apollo/client";
 
-export const ApolloPersistentProvider = (props) => {
+export const ApolloPersistentProvider: FunctionComponent = ({ children }) => {
   const [client, setClient] = useState(null);
 
   useEffect(() => {
@@ -13,8 +13,6 @@ export const ApolloPersistentProvider = (props) => {
   }, [client]);
 
   return (
-    !!client && (
-      <ApolloProvider client={client}>{props.children}</ApolloProvider>
-    )
+    !!client && <ApolloProvider client={client}>{children}</ApolloProvider>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { NextPage } from "next";
+import { NextPage, GetServerSideProps } from "next";
 import SEO from "../components/SEO";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
@@ -94,7 +94,7 @@ const TaskId: NextPage<TaskIdProps> = ({ taskId }) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const taskId = context.params.taskId;
 
   return {
