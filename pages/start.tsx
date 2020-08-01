@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import SEO from "../components/SEO";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
+import Loading from "../components/Loading";
 
 const INSERT_TEAM = gql`
   mutation InsertTeam($name: String) {
@@ -68,6 +69,7 @@ const Start: NextPage = () => {
 
   return (
     <>
+      <Loading visible={timeLoading || teamLoading} />
       <SEO title="Kierroksen aloitus | Kauklahden kierros" />
       <h1>Aloitus</h1>
       {teamError && <div>{teamError.message}</div>}
@@ -93,7 +95,9 @@ const Start: NextPage = () => {
               />
             </label>
           </div>
-          <button type="submit">Tallenna</button>
+          <button type="submit" disabled={timeLoading || teamLoading}>
+            Tallenna
+          </button>
         </form>
       )}
     </>

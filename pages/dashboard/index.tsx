@@ -8,6 +8,7 @@ import TaskCard from "../../components/dashboard/TaskCard";
 import TimesTable from "../../components/dashboard/TimesTable";
 import auth0 from "../../lib/auth0";
 import { IClaims } from "@auth0/nextjs-auth0/dist/session/session";
+import Loading from "../../components/Loading";
 
 const GET_TASKS = gql`
   query TasksQuery {
@@ -49,7 +50,7 @@ interface DashboardProps {
 const Dashboard: NextPage<DashboardProps> = ({ token, user }) => {
   if (!user) return <section>No access</section>;
 
-  const { data, error } = useQuery(GET_TASKS, {
+  const { data, error, loading } = useQuery(GET_TASKS, {
     context: {
       headers: {
         "X-Hasura-Role": `${process.env.NEXT_PUBLIC_HASURA_ADMIN_ROLE}`,
@@ -63,6 +64,7 @@ const Dashboard: NextPage<DashboardProps> = ({ token, user }) => {
       <section>
         <a href="/api/logout">Logout</a>
       </section>
+      <Loading visible={loading} />
       <SEO title="Dashboard | Kauklahden kierros" />
       <section>
         <h1>Dashboard</h1>

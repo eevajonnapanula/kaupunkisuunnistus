@@ -3,6 +3,7 @@ import { NextPage, GetServerSideProps } from "next";
 import SEO from "../components/SEO";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
+import Loading from "../components/Loading";
 
 const GET_TASK_DETAILS = gql`
   query GetTaskById($id: uuid!, $teamId: uuid!) {
@@ -36,7 +37,7 @@ interface TaskIdProps {
 const TaskId: NextPage<TaskIdProps> = ({ taskId }) => {
   const [answer, setAnswer] = useState("");
 
-  const { data, error } = useQuery(GET_TASK_DETAILS, {
+  const { data, error, loading } = useQuery(GET_TASK_DETAILS, {
     variables: { id: taskId },
   });
 
@@ -71,6 +72,7 @@ const TaskId: NextPage<TaskIdProps> = ({ taskId }) => {
       <SEO
         title={data && data.task && data.task.title ? data.task.title : ""}
       />
+      <Loading visible={loading || loadingTaskAccomplishment} />
       {data && data.currentTeamId ? (
         <>
           <section>
